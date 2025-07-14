@@ -88,6 +88,17 @@ Forecast: {period['detailedForecast']}
         forecasts.append(forecast)
 
     return "\n---\n".join(forecasts)
+
+@mcp.tool()
+async def get_current_weather(city: str) -> str:
+    """Fetch current weather for a city"""
+    
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"https://api.weatherapi.com/v1/current.json?q={city}&key=my_api_ket"
+        )
+        
+        return response.text 
   
 if __name__ == "__main__":
     # Initialize and run the server
